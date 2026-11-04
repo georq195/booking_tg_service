@@ -1,0 +1,14 @@
+services:
+  bot:
+    build: .
+    env_file: .env
+    restart: unless-stopped
+    volumes:
+      # SQLite: DATABASE_URL по умолчанию = ./data/bookings.db = /app/data/bookings.db
+      - bot-data:/app/data
+      # Ключ сервисного аккаунта Google, только чтение.
+      # GSHEETS_CREDENTIALS_PATH=/app/credentials/service-account.json
+      - ./credentials:/app/credentials:ro
+
+volumes:
+  bot-data:
